@@ -1,5 +1,5 @@
 # Christmas Traditions - Writeup
-The script `encrypt_decrypt.py` implements a monoalphabetic substitution cipher. It uses a permutation created by generate_perm.py that maps the set of characters `abcdefghijklmnopqrstuvwxyz \n ` to `abcdefghijklmnopqrstuvwxyz01`. This means that every letter, space, and newline in the original text has been replaced by a unique character from the set of lowercase letters and the digits 0 and 1.
+The script `encrypt_decrypt.py` implements a monoalphabetic substitution cipher. It uses a permutation created by `generate_perm.py` that maps the set of characters `abcdefghijklmnopqrstuvwxyz \n ` to `abcdefghijklmnopqrstuvwxyz01`. This means that every letter, space, and newline in the original text has been replaced by a unique character from the set of lowercase letters and the digits 0 and 1.
 
 ## Decrypting the Sample Text
 
