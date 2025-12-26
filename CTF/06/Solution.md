@@ -32,7 +32,7 @@ This challenge tasks us with decrypting a message encrypted using AES-CBC. While
 
 3. Exploitation Script
 
-    - The `soluiton.py` script automates this process by iterating through each block and each byte within that block.
+    - The `solution.py` script automates this process by iterating through each block and each byte within that block.
     Key Steps in the Script:
 
     - Block Splitting: The ciphertext is divided into 16-byte chunks.
