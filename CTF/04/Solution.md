@@ -40,3 +40,8 @@ Step-by-Step Solution
     ```math
     b≡(s1​−a⋅s0​)(modm)
     ```
+    ![run](run.png)
+
+    ![solution](solution.png)
+
+### Final Flag: `CRYPTO_CTF{L1n34rly_C0ngru3n7_C4r0l5}`
