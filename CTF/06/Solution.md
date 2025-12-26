@@ -60,5 +60,8 @@ This challenge tasks us with decrypting a message encrypted using AES-CBC. While
         - Block 2: Contains the middle of the flag.
 
         - Block 1: Contains the start of the flag.
+        
+![run](run.png)
+![solution](solution.png)
 
 ### Final Flag: `CRYPTO_CTF{LookMa!NoKey}`

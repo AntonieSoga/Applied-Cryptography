@@ -42,6 +42,6 @@ The vulnerability lies in the return_flag function within the provided source co
 
 5. Convert to Text: The server returns a large integer. Convert this integer from bytes to a string to reveal the flag.
 
-    ![alt text](solution.png)
+    ![soluiton](solution.png)
 
 ### Final Flag: `CRYPTO_CTF{ho_ho_h0m0m0rph1c_3ncryp710n}`

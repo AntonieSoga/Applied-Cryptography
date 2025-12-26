@@ -51,6 +51,8 @@ Execution Trace:
 
 As each character was correctly identified, the base latency increased by approximately 30-45ms, confirming the "staircase" effect of the timing attack.
 
+![solution](solution.png)
+
 #### FLAG: CRYPTO_CTF{SoMuchTimeSoLitteleToDo}
 
 5. Conclusion
