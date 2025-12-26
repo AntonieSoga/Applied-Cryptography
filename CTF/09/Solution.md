@@ -38,4 +38,4 @@ The Dutchman's Patrols challenge is a cryptography task that requires exploiting
     - Running the `solution.py` script reveals the most frequent byte at each of the 16 positions. Once combined, these bytes form the secret key used by the server.
     ![solution](solution.png)
     
-### Final Flag: `CRYPTO_CTF{<recovered_key>}`
+### Final Flag: `CRYPTO_CTF{HalleluEtAdonai!}`
