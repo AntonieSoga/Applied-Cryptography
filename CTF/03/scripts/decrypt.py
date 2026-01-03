@@ -3,7 +3,7 @@ import string     # Standard string library (though mostly unused here, helpful 
 
 # Read the file 'cyphertexts.txt', strip whitespace, and convert hex strings into byte objects.
 # This creates a list of byte-arrays, where each item is one encrypted message.
-cts = [bytes.fromhex(s.strip()) for s in open("cyphertexts.txt") if s.strip()]
+cts = [bytes.fromhex(s.strip()) for s in open("ctf/03/files/cyphertexts.txt") if s.strip()]
 
 
 def is_letter(b):
