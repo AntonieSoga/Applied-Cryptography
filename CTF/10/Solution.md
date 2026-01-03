@@ -35,7 +35,7 @@ one message key in a chain, I can derive subsequent keys cheaply.
 I implemented a brute-force script that reads intercepted log lines from a file
 and decrypts each message as soon as it finds a valid key.
 
-Path: `client/bruteforce_gcm.py`
+Path: `bruteforce_gcm.py`
 
 ### Usage
 Put intercepted lines in a file (one per line), e.g. `client/intercepts.txt`:
@@ -47,7 +47,7 @@ Put intercepted lines in a file (one per line), e.g. `client/intercepts.txt`:
 Run:
 
 ```bash
-python3 client/bruteforce_gcm.py client/intercepts.txt
+python3 bruteforce_gcm.py client/intercepts.txt
 ```
 
 Example output:

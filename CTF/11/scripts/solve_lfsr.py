@@ -3,7 +3,7 @@
 from pathlib import Path  # Import Path for simple file IO.
 
 # Load the encrypted file as raw bytes.
-enc = Path("santa_512x512.enc").read_bytes()  # Read ciphertext bytes.
+enc = Path("ctf/11/files/santa_512x512.enc").read_bytes()  # Read ciphertext bytes.
 
 # Define the known PPM header for a 512x512 P6 image with 255 max value.
 header = b"P6\n512 512\n255\n"  # Known-plaintext header.
@@ -85,4 +85,4 @@ for _ in range(len(enc)):  # Generate one keystream byte per ciphertext byte.
 plain = bytes([c ^ k for c, k in zip(enc, keystream)])  # Decrypt bytes.
 
 # Write the decrypted PPM file for viewing the flag.
-Path("santa_512x512.ppm").write_bytes(plain)  # Save decrypted image.
+Path("ctf/11/files/santa_512x512.ppm").write_bytes(plain)  # Save decrypted image.

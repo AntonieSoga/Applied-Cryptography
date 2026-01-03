@@ -55,6 +55,8 @@ python3 solve_lfsr.py
 
 This writes `santa_512x512.ppm`. Open it with any image viewer or convert it to PNG to read the flag.
 
+![alt text](image.png)
+
 ## Flag
 
 After opening the reversing the encryption of the image we opened the file and saw the following flag.
