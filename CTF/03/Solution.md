@@ -1,42 +1,73 @@
-# Perfect Secrecy Ex3 - Writeup
+# Perfect Secrecy - Writeup
 
-## Overview
-The challenge involved a set of 9 plaintexts encrypted with the same One-Time Pad (OTP) key. Reusing a key in this manner degrades the scheme into a **Many-Time Pad**, introducing a critical vulnerability: XORing two ciphertexts eliminates the key ($C_1 \oplus C_2 = P_1 \oplus P_2$), allowing for statistical recovery of the plaintexts.
+This challenge is a classic cryptography problem involving Key Reuse in a system intended for One-Time Pad (OTP) encryption. While OTP provides "perfect secrecy" when used correctly, reusing the same key across multiple plaintexts (a "Many-Time Pad" attack) allows us to recover the original messages using statistical analysis.
 
-## Methodology
+-> The Vulnerability: Many-Time Pad (MTP)
 
-### 1. Key Recovery Strategy
-We utilized a Python script to perform the following attacks:
-*   **Space Heuristic:** We analyzed columns where $C_x \oplus C_y$ resulted in an alphabetic character. In English, the space character (0x20) is the most common; if $P_x$ is a space, then $P_x \oplus P_y$ reveals the letter case of $P_y$.
-*   **Statistical Analysis:** We scored potential key bytes based on how "English-like" the resulting plaintexts looked (frequency analysis of letters vs. non-printable characters).
-*   **Known Plaintext Attack:** Once fragments of text became readable, we identified specific quotes (e.g., *Beowulf*, *The Silmarillion*, *Proverbs*). We used the exact text of these quotes to recover the key fully for those segments.
+The challenge notes that Fred used an algorithm providing "perfect secrecy" to encrypt 9 different plaintexts. In cryptography, perfect secrecy is the defining characteristic of the One-Time Pad.
 
-### 2. The Instruction
-Decrypting the final message (Quote 8) revealed the objective:
+The mathematical flaw arises because Fred used the same key (k) for all 9 plaintexts (p1​,p2​,...p9​):
 
-> "To whom it may concern: you want to capture the flag, don't you? You won't find it in THIS plaintext, for the flag is the **NAME** of George's musical composition, which **SHALL** be written in capital letters."
+```math
+C1​=p1​⊕k
+C2​=p2​⊕k
+```
 
-### 3. Solving the Riddle
-The flag wasn't in the text itself but hidden in the **capitalization anomalies** of the other decrypted quotes. By aggregating the oddly capitalized words across the messages, we reconstructed a hidden sentence:
+If we XOR two ciphertexts together, the key cancels out, leaving the XOR sum of the two plaintexts:
 
-*   **Quote 0:** `UNTO`, `US`
-*   **Quote 1:** `CHILD`, `IS`, `BORN`
-*   **Quote 4:** `SON`, `GIVEN`
-*   **Quote 5:** `AND`, `GOVERNMENT`
-*   **Quote 6:** `SHALL`, `BE`, `UPON`
-*   **Quote 7:** `HIS`, `SHOULDERS`
-*   **Quote 8:** `NAME`
+```math
+C1​⊕C2​=(p1​⊕k)⊕(p2​⊕k)=p1​⊕p2​
+```
 
-**Reconstructed Verse:**
-> *"For **UNTO US** a **CHILD IS BORN**, unto us a **SON** is **GIVEN**; **AND** the **GOVERNMENT SHALL BE UPON HIS SHOULDERS**; and his **NAME**..."*
 
-### 4. The Connection
-This text is from **Isaiah 9:6**. It is most famously known as the chorus lyrics from the oratorio **Messiah**, composed by **George Frideric Handel**.
+By looking at the "vertical" column of bytes across all 9 ciphertexts at a specific position, we can use frequency analysis to "guess" the key byte that results in the most readable English characters across all strings.
+## Step-by-Step Solution
+1. Statistical Analysis (Crib Dragging)
 
-*   **George:** George Frideric Handel
-*   **Musical Composition:** Messiah
+    - We use a Python script to perform a vertical statistical attack. The script iterates through every possible byte (0-255) for each position in the key. It "scores" each candidate based on how many printable English characters (letters, spaces, common punctuation) it produces when XORed with the ciphertexts at that position.
 
-## Flag
-According to the instructions, the flag is the name of the composition in capital letters.
+    - Spaces are weighted heavily because they are the most common character in English.
 
-`CRYPTO_CTF{MESSIAH}`
+    - Lowercase letters receive a higher score than symbols.
+
+    - Non-printable characters receive a heavy penalty.
+
+2. Extracting the Hidden Hint
+
+    - The script also successfully decrypted the final ciphertext, which contained a direct hint regarding the flag:
+
+        - "To whom it may concern: You want to capture the flag, don't you? You won't find it in this plaintext, for the flag is the NAME of George's musical composition which SHALL BE written in capital letters."
+
+
+3. Recovering the Fragments
+
+    - By running the script, we recover fragments of the 9 plaintexts. And from the output we can select the CAPITAL:
+    ![alt text](image-1.png)
+
+        `FOR YN*O UT A K J CHILD RS BONN O I I I NTO F US A T K LIN G IS GIVEN I V ANC GOVEXNMFNX IHBLL BE USOB HNS SHOUODERO`
+
+    - To resolve this, the following prompt was used with `Gemini AI by Google` to decipher the individual words: 
+        ```
+        can you crack these words individually?
+
+
+        for yn*o ut a k j child rs bonn o i i i *nto F US A T K LIN G IS GIVEN I v anc govexnmfnx ihbll be usob hns shouodero
+        ```
+        
+        ![alt text](image-3.png)
+
+    - Despite the typos/scrambling, this is clearly a passage from the Bible (Isaiah 9:6):
+
+        - `"For unto us a child is born, unto us a son is given: and the government shall be upon his shoulder."`
+
+4. Identifying the "Masterpiece"
+
+    - The challenge hint states: `"You can't even guess the name of the masterpiece!"`
+    
+        ![alt text](image-4.png)
+    
+    - The recovered text is the most famous movement from `George Frideric Handel's` oratorio, titled `Messiah`. This composition is widely considered his masterpiece and the lyrics are taken directly from the Isaiah passage found in the ciphertexts.
+
+
+
+#### Final Flag: `CRYPTO_CTF{MESSIAH}`
