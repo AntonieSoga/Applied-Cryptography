@@ -10,6 +10,8 @@ The mathematical flaw arises because Fred used the same key (k) for all 9 plaint
 
 ```math
 C1​=p1​⊕k
+```
+```math
 C2​=p2​⊕k
 ```
 
