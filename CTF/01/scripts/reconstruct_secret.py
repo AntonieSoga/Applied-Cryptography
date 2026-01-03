@@ -74,7 +74,7 @@ secret = reconstruct_secret(shares, p)
 key = secret.to_bytes(16, "big")
 
 # Open the encrypted flag file in 'read binary' (rb) mode.
-with open("flag.enc", "rb") as f:
+with open("ctf/01/files/flag.enc", "rb") as f:
     ciphertext = f.read()
 
 # Initialize the AES Cipher object.
